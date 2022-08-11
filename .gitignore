@@ -1,2 +1,3 @@
 /debug.py
 /run_tests.sh
+/litecart/web_ui/tests/.pytest_cache/

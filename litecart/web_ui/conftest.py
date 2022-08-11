@@ -1,7 +1,7 @@
 from litecart.web_ui.pages.application import Application
 import allure
+from litecart.web_ui.core.fixture.options import *
 from datetime import datetime
-from litecart.core.fixture.options import *
 
 
 @pytest.fixture(scope='function')

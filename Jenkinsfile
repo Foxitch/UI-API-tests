@@ -1,10 +1,5 @@
 pipeline {
     agent { label 'test' }
-    
-    environment {
-        PROTO = 'https'
-        URL = 'localhost/litecart/en'
-    }
 
     stages {
         stage('Run tests') {

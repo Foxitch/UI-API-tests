@@ -1,5 +1,4 @@
 pipeline {
-    agent { label 'test' }
 
     stages {
         stage('Run tests') {

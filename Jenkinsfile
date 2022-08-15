@@ -6,7 +6,7 @@ pipeline {
             steps {
                 sh """
                     pip install -r ./requirements.txt
-                    ./run_tests.sh
+                    ./run_tests.sh ./litecart/web_ui/tests
                     cp reports/* ${WORKSPACE}
                 """
             }

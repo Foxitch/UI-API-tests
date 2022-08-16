@@ -1,23 +1,11 @@
 pipeline {
-    agent any
-
+    agent { dockerfile true }
     stages {
-        stage('Run tests') {
+        stage('Test') {
             steps {
                 sh """
-                    pip install -r ./requirements.txt
-                    ./run_tests.sh ./litecart/web_ui/tests
-                    cp reports/* ${WORKSPACE}
+                pwd
                 """
-            }
-        }
-    }
-
-    post {
-        always {
-            cleanWs()
-            dir("${env.WORKSPACE}@tmp") {
-                deleteDir()
             }
         }
     }

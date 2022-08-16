@@ -21,14 +21,12 @@ class Common:
             ec.presence_of_all_elements_located(locator)
         )
 
-    def validate_element_is_disappeared(self, locator: tuple, timeout: int = 5) -> bool:
-        """ Returns False if element is not disappeared """
-
+    def validate_element_visible_on_the_page(self, locator: tuple, timeout: int = 5) -> bool:
         try:
             self.app.common.is_present(locator, timeout)
-            return False
-        except (TimeoutException, NoSuchElementException):
             return True
+        except (TimeoutException, NoSuchElementException):
+            return False
 
     @staticmethod
     def select_element(element: WebElement) -> Select:

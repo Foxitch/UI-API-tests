@@ -1,5 +1,6 @@
 from litecart.web_ui.pages.application import Application
 import allure
+import pytest
 from litecart.web_ui.core.fixture.options import *
 from datetime import datetime
 

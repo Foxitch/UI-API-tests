@@ -11,4 +11,3 @@ class TestPetModule:
     def test_pet_api_flow(self, options):
         PetApiLogic.get_pet_by_id_and_validate_id(proto=options['proto'], url=options['url'])
         PetApiLogic.delete_pet_by_id(proto=options['proto'], url=options['url'])
-

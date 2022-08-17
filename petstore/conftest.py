@@ -1,5 +1,5 @@
 import pytest
-from petstore_api.core.options import *
+from petstore.api.core.options import *
 
 
 @pytest.fixture(scope='function')

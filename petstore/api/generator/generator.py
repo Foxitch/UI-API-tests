@@ -1,6 +1,6 @@
 import random
 from faker import Faker
-from petstore_api.data.data import User
+from petstore.api.data.data import User
 
 
 faker_ru = Faker('ru_RU')

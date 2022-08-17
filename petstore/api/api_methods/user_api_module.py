@@ -1,6 +1,6 @@
 import allure
 import requests
-from petstore_api.generator.generator import generated_user_data
+from petstore.api.generator.generator import generated_user_data
 
 
 class UserApiModule:

@@ -1,7 +1,7 @@
 import allure
 from pydantic import ValidationError
-from petstore_api.validator.user_module_validator import User
-from petstore_api.api_methods.user_api_module import UserApiModule
+from petstore.api.validator.user_module_validator import User
+from petstore.api.api_methods.user_api_module import UserApiModule
 
 
 class UserApiLogic:

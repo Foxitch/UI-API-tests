@@ -29,5 +29,4 @@ class TestHomePage:
         app.homepage.select_a_product_from_the_main_page()
         app.homepage.add_some_products_to_the_cart(products_count=3)
         app.homepage.open_a_cart()
-
-
+        """ Empy cart method ?"""

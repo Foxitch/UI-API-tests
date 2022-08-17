@@ -1,6 +1,6 @@
 import allure
 import pytest
-from petstore_api.logic.user_api_logic import UserApiLogic
+from petstore.api.logic.user_api_logic import UserApiLogic
 
 
 @allure.suite('User API Module')

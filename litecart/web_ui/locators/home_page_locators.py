@@ -17,8 +17,11 @@ class HomePageLocators:
     PRODUCTS_OPTION_SIZE_SELECT = (By.XPATH, '//select[@name="options[Size]"]')
     CART_PRICE = (By.XPATH, '//span[@class="formatted_value"]')
     QUANTITY_INPUT_FIELD = (By.XPATH, '//input[@name="quantity"]')
-    OPEN_THE_CART_BUTTON = (By.XPATH, '//a[contains(@href, "checkout")]')
+    OPEN_THE_CART_BUTTON = (By.XPATH, '//a[contains(@href, "checkout") and @class="link"]')
     REMOVE_FROM_CART_BUTTON = (By.XPATH, '//button[@name="remove_cart_item"]')
+    EMPTY_CART_TEXT = (By.XPATH, '//em')
+    CONFIRM_ORDER_BUTTON = (By.XPATH, '//button[@name="confirm_order"]')
+    SUCCESSFUL_ORDER_TEXT = (By.XPATH, '//h1')
 
     # Footer
 

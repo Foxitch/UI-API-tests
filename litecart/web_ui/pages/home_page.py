@@ -1,9 +1,7 @@
 import random
 import time
-
 import allure
 from selenium.common import TimeoutException
-
 from litecart.web_ui.locators.home_page_locators import HomePageLocators
 from selenium.webdriver.remote.webelement import WebElement
 
@@ -62,8 +60,22 @@ class HomePage:
         cart_price = self.app.common.is_present(HomePageLocators.CART_PRICE).text
         return int(cart_price.split('$')[-1])
 
-    def get_remove_from_cart_btn(self) -> None:
+    def __get_remove_from_cart_btn(self) -> None:
         return self.app.common.is_present(HomePageLocators.REMOVE_FROM_CART_BUTTON).click()
+
+    def __validate_remove_btn_is_visible(self) -> bool:
+        return self.app.common.validate_element_visible_on_the_page(
+            locator=HomePageLocators.REMOVE_FROM_CART_BUTTON, timeout=3
+        )
+
+    def __get_text_from_empty_cart(self) -> str:
+        return self.app.common.is_present(HomePageLocators.EMPTY_CART_TEXT).text
+
+    def get_confirm_order_btn(self) -> None:
+        return self.app.common.is_present(HomePageLocators.CONFIRM_ORDER_BUTTON).click()
+
+    def __get_successful_order_text(self) -> str:
+        return self.app.common.is_present(HomePageLocators.SUCCESSFUL_ORDER_TEXT).text
 
     @allure.step('Logout process')
     def logout_process(self) -> None:
@@ -72,7 +84,7 @@ class HomePage:
             'Expected successful pop-up message after the logout process'
 
     @allure.step('Open a cart')
-    def open_a_cart(self) -> None:
+    def open_cart(self) -> None:
         self.__get_move_to_cart_btn()
         assert 'checkout' in self.app.wd.current_url, 'Cart is not opened'
 
@@ -125,4 +137,27 @@ class HomePage:
         self.change_a_products_quantity(products_count)
         self.validate_added_price_to_cart(products_count)
 
+    @allure.step('Empty cart')
+    def empty_cart(self) -> None:
+        remove_btn: bool = self.__validate_remove_btn_is_visible()
+        while remove_btn is True:
+            self.__get_remove_from_cart_btn()
+            time.sleep(2)
+            remove_btn = self.__validate_remove_btn_is_visible()
+            time.sleep(1)
+
+        assert self.__get_text_from_empty_cart() == 'There are no items in your cart.', \
+            f'Expected text is "There are no items in your cart.", actual is {self.__get_text_from_empty_cart()}'
+
+    @allure.step('Make an order')
+    def make_order(self) -> None:
+        query: str = 'SELECT * from lc_orders'
+        orders_before: int = len(self.app.session.db_connect(query=query))
+        self.open_cart()
+        self.get_confirm_order_btn()
+        orders_after: int = len(self.app.session.db_connect(query=query))
+
+        assert orders_before == orders_after - 1, 'Order is not added to the DB'
+        assert self.__get_successful_order_text() == 'Your order is successfully completed!', \
+            'Text about successfully order is not appeared'
 

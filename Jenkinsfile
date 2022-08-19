@@ -6,13 +6,13 @@ pipeline {
             steps {
                 sh """
                     sudo apt update && sudo apt install python3.10-venv
-                    python3.10 -m venv functional_tests_env
-                    . functional_tests_env/bin/activate
+                    python3.10 -m venv tests_env
+                    . tests_env/bin/activate
                     pip install -r ./litecart/requirements.txt
                     pip install -r ./petstore/requirements.txt
-                    ./run_tests.sh ./litecart/web_ui/tests/ ./petstore/api/tests/
-                    zip -r tests-result.zip /allure-results
-                """               
+                    ./run_ui_tests.sh ./litecart/web_ui/tests/
+                    ./run_api_tests.sh ./petstore/api/tests/
+                """
 
                 script {
                     allure([
@@ -20,7 +20,7 @@ pipeline {
                             jdk: '',
                             properties: [],
                             reportBuildPolicy: 'ALWAYS',
-                            results: [[path: '/allure-results']]
+                            results: [[path: 'allure-results']]
                     ])
                 }
             }

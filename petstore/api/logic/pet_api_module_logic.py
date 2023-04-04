@@ -6,10 +6,9 @@ from petstore.api.api_methods.pet_api_module import PetApiModule
 
 class PetApiLogic:
 
-    @staticmethod
     @allure.step('Validate response body and get ID')
-    def __get_id_from_the_post_pet_method(proto: str, url: str) -> int:
-        response = PetApiModule.post_pet_request(proto, url)
+    def __get_id_from_the_post_pet_method(self, url: str) -> int:
+        response = PetApiModule.post_pet_request(url)
 
         try:
             post_pet = Pet.parse_raw(response)
@@ -17,11 +16,10 @@ class PetApiLogic:
         except ValidationError as e:
             raise AssertionError('Exception:\n', e.json())
 
-    @staticmethod
     @allure.step('GET pet by id and validate response body')
-    def get_pet_by_id_and_validate_id(proto: str, url: str) -> None:
-        pet_id: int = PetApiLogic.__get_id_from_the_post_pet_method(proto, url)
-        response: str = PetApiModule.get_pet_request(proto, url, pet_id)
+    def get_pet_by_id_and_validate_id(self, url: str) -> None:
+        pet_id: int = self.__get_id_from_the_post_pet_method(url)
+        response: str = PetApiModule.get_pet_request(url, pet_id)
 
         try:
             post_pet = Pet.parse_raw(response)
@@ -29,8 +27,7 @@ class PetApiLogic:
         except ValidationError as e:
             raise AssertionError('Exception:\n', e.json())
 
-    @staticmethod
     @allure.step('Delete created pet by id')
-    def delete_pet_by_id(proto: str, url: str) -> None:
-        pet_id: int = PetApiLogic.__get_id_from_the_post_pet_method(proto, url)
-        PetApiModule.delete_pet_request(proto, url, pet_id)
+    def delete_pet_by_id(self, url: str) -> None:
+        pet_id: int = self.__get_id_from_the_post_pet_method(url)
+        PetApiModule.delete_pet_request(url, pet_id)

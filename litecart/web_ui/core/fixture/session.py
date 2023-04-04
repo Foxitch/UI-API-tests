@@ -8,8 +8,8 @@ class SessionHelper:
         self.app = app
 
     @allure.step('Login process')
-    def login(self, email: str, password: str, proto: str, url: str) -> None:
-        self.app.wd.get(f'{proto}://{url}/')
+    def login(self, email: str, password: str, url: str) -> None:
+        self.app.wd.get(url)
         self.app.homepage.get_email_input_field().send_keys(email)
         self.app.homepage.get_password_input_field().send_keys(password)
         self.app.homepage.get_login_btn()
@@ -17,10 +17,10 @@ class SessionHelper:
     @allure.step('Open a DB connection')
     def db_connect(self, query: str) -> list:
         db = mysql.connect(
-            host="localhost",
-            user="root",
-            passwd="",
-            database="litecart",
+            host='localhost',
+            user='root',
+            passwd='',
+            database='litecart',
         )
 
         cursor = db.cursor()
@@ -30,6 +30,6 @@ class SessionHelper:
         return data
 
     @allure.step('Logout process')
-    def logout(self, proto: str, url: str) -> None:
-        self.app.wd.get(f'{proto}://{url}/')
+    def logout(self, url: str) -> None:
+        self.app.wd.get(url)
         self.app.homepage.get_logout_btn()

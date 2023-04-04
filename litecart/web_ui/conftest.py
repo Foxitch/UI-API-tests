@@ -1,18 +1,25 @@
-from litecart.web_ui.pages.application import Application
+import os
+
+from dotenv import load_dotenv
+
 import allure
 import pytest
-from litecart.web_ui.core.fixture.options import *
+
 from datetime import datetime
+
+from litecart.web_ui.pages.application import Application
+
+
+load_dotenv()
 
 
 @pytest.fixture(scope='function')
-def app(request) -> Application:
+def app() -> Application:
     fixture = Application()
     fixture.session.login(
-        request.config.getoption('email'),
-        request.config.getoption('password'),
-        request.config.getoption('proto'),
-        request.config.getoption('url'),
+        email=os.getenv('LOGIN'),
+        password=os.getenv('PASSWORD'),
+        url=os.getenv('URL')
     )
     yield fixture
     allure.attach(fixture.wd.get_screenshot_as_png(),

@@ -26,7 +26,7 @@ class RegionalSettingsPage:
         return self.app.common.is_present(RegionalSettingsPageLocators.SAVE_BUTTON).click()
 
     @allure.step('Open the Regional Settings page from the footer')
-    def open_regional_settings_page(self):
+    def open_regional_settings_page(self) -> None:
         self.app.homepage.get_regional_settings_footer_btn()
         assert 'regional_setting' in self.app.wd.current_url, 'Regional Settings page is not opened'
 
@@ -40,7 +40,7 @@ class RegionalSettingsPage:
         self.get_list_with_countries()[country_position].click()
 
     @allure.step('Change a currency and country on the Regional Settings page')
-    def change_currency(self):
+    def change_currency(self) -> None:
         self.open_regional_settings_page()
         self.__select_currency('EUR')
         self.get_select_country_drop_down().click()
@@ -49,6 +49,3 @@ class RegionalSettingsPage:
 
         assert self.app.homepage.get_current_currency() == 'EUR' and \
                self.app.homepage.get_current_country() != 'Russian Federation', 'Currency or country are not changed'
-
-
-

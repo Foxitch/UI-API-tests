@@ -1,10 +1,12 @@
+import os
+
 import pytest
-from petstore.api.core.options import *
+from dotenv import load_dotenv
 
 
-@pytest.fixture(scope='function')
-def options(request) -> dict:
-    dict_options = dict()
-    dict_options['proto'] = request.config.getoption('proto_pet')
-    dict_options['url'] = request.config.getoption('url_pet')
-    return dict_options
+load_dotenv()
+
+
+@pytest.fixture(scope='session')
+def options() -> dict:
+    return {'url': os.getenv('PET_URL')}

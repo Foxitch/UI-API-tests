@@ -151,7 +151,7 @@ class HomePage:
 
     @allure.step('Make an order')
     def make_order(self) -> None:
-        query: str = 'SELECT * from lc_orders'
+        query: str = 'SELECT * FROM lc_orders'
         orders_before: int = len(self.app.session.db_connect(query=query))
         self.open_cart()
         self.get_confirm_order_btn()
@@ -160,4 +160,3 @@ class HomePage:
         assert orders_before == orders_after - 1, 'Order is not added to the DB'
         assert self.__get_successful_order_text() == 'Your order is successfully completed!', \
             'Text about successfully order is not appeared'
-

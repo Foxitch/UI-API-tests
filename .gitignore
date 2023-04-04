@@ -1,3 +1,6 @@
+.idea
 /debug.py
 /litecart/run_ui_tests.sh
-/litecart/web_ui/tests/.pytest_cache/
+.pytest_cache
+venv
+__pycache__

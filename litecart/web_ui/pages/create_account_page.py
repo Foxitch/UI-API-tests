@@ -51,14 +51,14 @@ class CreateAccountPage:
         return input_field.clear()
 
     @allure.step('Open the Create Account page')
-    def open_create_account_page(self):
+    def open_create_account_page(self) -> None:
         self.app.homepage.logout_process()
         self.app.homepage.get_create_account_footer_btn()
 
         assert 'create_account' in self.app.wd.current_url, 'Create Account page is not opened'
 
     @allure.step('Fill all required fields and press "Create account" button')
-    def fill_all_required_fields_and_click_create_account_btn(self):
+    def fill_all_required_fields_and_click_create_account_btn(self) -> None:
         user_info = next(generated_user_data())
         password = user_info.password
 

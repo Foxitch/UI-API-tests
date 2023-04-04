@@ -20,65 +20,57 @@ class UserApiModule:
         }
         return user_data
 
-    @staticmethod
     @allure.step('POST user request')
-    def post_user_request(proto: str, url: str) -> str:
-        user_info: dict = UserApiModule.__generate_user_info()
+    def post_user_request(self, url: str) -> str:
+        user_info: dict = self.__generate_user_info()
 
         r = requests.post(
-            url='{}://{}/v2/user'.format(proto, url),
+            url=f'{url}/v2/user',
             headers={'Content-Type': 'application/json'},
             json={
-                "id": 0,
-                "username": f"{user_info['user_name']}",
-                "firstName": f"{user_info['first_name']}",
-                "lastName": f"{user_info['last_name']}",
-                "email": f"{user_info['email']}",
-                "password": f"{user_info['password']}",
-                "phone": f"{user_info['phone']}",
-                "userStatus": 0
+                'id': 0,
+                'username': f'{user_info["user_name"]}',
+                'firstName': f'{user_info["first_name"]}',
+                'lastName': f'{user_info["last_name"]}',
+                'email': f'{user_info["email"]}',
+                'password': f'{user_info["password"]}',
+                'phone': f'{user_info["phone"]}',
+                'userStatus': 0
             }
         )
 
-        if r.status_code == 200:
-            return user_info['user_name']
-
-        raise AssertionError(f'Expected status code is 200, actual is {r.status_code}')
+        assert r.status_code == 200, f'Expected status code is 200, actual is {r.status_code}'
+        return user_info['user_name']
 
     @staticmethod
     @allure.step('GET user request')
-    def get_user_request(proto: str, url: str, user_name: str) -> str:
+    def get_user_request(url: str, user_name: str) -> str:
         r = requests.get(
-            url='{}://{}/v2/user/{}'.format(proto, url, user_name),
+            url=f'{url}/v2/user/{user_name}',
         )
 
-        if r.status_code == 200:
-            return r.text
+        assert r.status_code == 200, f'Expected status code is 200, actual is {r.status_code}'
+        return r.text
 
-        raise AssertionError(f'Expected status code is 200, actual is {r.status_code}')
-
-    @staticmethod
     @allure.step('PUT user request')
-    def put_user_request(proto: str, url: str, user_name: str) -> str:
-        user_info: dict = UserApiModule.__generate_user_info()
+    def put_user_request(self, url: str, user_name: str) -> str:
+        user_info: dict = self.__generate_user_info()
         new_user_name: str = next(generated_user_data()).user_name
 
         r = requests.put(
-            url='{}://{}/v2/user/{}'.format(proto, url, user_name),
+            url=f'{url}/v2/user/{user_name}',
             headers={'Content-Type': 'application/json'},
             json={
-                "id": 0,
-                "username": f"{new_user_name}",
-                "firstName": f"{user_info['first_name']}",
-                "lastName": f"{user_info['last_name']}",
-                "email": f"{user_info['email']}",
-                "password": f"{user_info['password']}",
-                "phone": f"{user_info['phone']}",
-                "userStatus": 0
+                'id': 0,
+                'username': f'{new_user_name}',
+                'firstName': f'{user_info["first_name"]}',
+                'lastName': f'{user_info["last_name"]}',
+                'email': f'{user_info["email"]}',
+                'password': f'{user_info["password"]}',
+                'phone': f'{user_info["phone"]}',
+                'userStatus': 0
             }
         )
 
-        if r.status_code == 200:
-            return new_user_name
-
-        raise AssertionError(f'Expected status code is 200, actual is {r.status_code}')
+        assert r.status_code == 200, f'Expected status code is 200, actual is {r.status_code}'
+        return new_user_name

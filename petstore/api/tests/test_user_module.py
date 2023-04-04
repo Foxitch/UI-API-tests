@@ -9,5 +9,5 @@ class TestUserModule:
     @pytest.mark.api
     @allure.title('Test user api flow')
     def test_user_api_flow(self, options):
-        UserApiLogic.get_user_by_username_and_validate_response(proto=options['proto'], url=options['url'])
-        UserApiLogic.user_api_flow(proto=options['proto'], url=options['url'])
+        UserApiLogic.get_user_by_username_and_validate_response(url=options['url'])
+        UserApiLogic.user_api_flow(url=options['url'])

@@ -1,7 +1,7 @@
 from typing import List
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.ui import WebDriverWait as wait
+from selenium.webdriver.support.ui import WebDriverWait as Wait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.select import Select
 
@@ -12,12 +12,12 @@ class Common:
         self.app = app
 
     def is_present(self, locator: tuple, timeout: int = 10) -> WebElement:
-        return wait(self.app.wd, timeout).until(
+        return Wait(self.app.wd, timeout).until(
             ec.presence_of_element_located(locator)
         )
 
     def are_present(self, locator: tuple, timeout: int = 10) -> List[WebElement]:
-        return wait(self.app.wd, timeout).until(
+        return Wait(self.app.wd, timeout).until(
             ec.presence_of_all_elements_located(locator)
         )
 
